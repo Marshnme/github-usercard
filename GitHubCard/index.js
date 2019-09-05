@@ -5,19 +5,15 @@
 axios
   .get("https://api.github.com/users/Marshnme")
   .then(response => {
-    console.log(response);
-    response.data.login.forEach(item => {
-      const newInfo = createCard(item);
-      entryPoint.appendChild(newInfo);
+    console.log(response.data);
+  
+      entryPoint.appendChild(createCard(response.data));
+  //   .catch(error => {
+  //   console.log("The data was not returned", error);
+  // });
     });
-    // const work = response.map(item =>{
-    //   const newInfo = createCard(item);
-    //   entryPoint.appendChild(newInfo);
-    // })
-  })
-  .catch(error => {
-    console.log("The data was not returned", error);
-  });
+  
+ 
   
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -67,7 +63,7 @@ function createCard(arg){
     newCard = document.createElement("div"),
     image = document.createElement("img"),
     cardInfo = document.createElement("div"),
-    name = document.createElement("h3"),
+    nameSo = document.createElement("h3"),
     userName = document.createElement("p"),
     location = document.createElement("p"),
     profile = document.createElement("p"),
@@ -78,12 +74,12 @@ function createCard(arg){
 
     newCard.classList.add("card");
     cardInfo.classList.add("card-info");
-    name.classList.add("name");
+    nameSo.classList.add("name");
     userName.classList.add("username");
 
     newCard.appendChild(image);
     newCard.appendChild(cardInfo);
-    cardInfo.appendChild(name);
+    cardInfo.appendChild(nameSo);
     cardInfo.appendChild(userName);
     cardInfo.appendChild(location);
     cardInfo.appendChild(profile);
@@ -93,14 +89,26 @@ function createCard(arg){
     cardInfo.appendChild(bio);
 
 
-    image.src = `${data.avatar_url}`;
-    name.textContent = `${data.name}`;
-    userName.textContent = `${data.login}`;
-    location.textContent = `${data.location}`;
-    profile.textContent = `${data.html_url}`;
-    followers.textContent = `${data.followers}`;
-    following.textContent = `${data.following}`;
-    bio.textContent = `${bio}`;
+    // //deconstructor
+    // const{
+    //   avatar_url,
+    //   name,
+    //   login,
+    //   location,
+    //   html_url,
+    //   followers,
+    //   following,
+    //   bio
+    // } = arg;
+console.log(arg)
+    image.src = `${arg.avatar_url}`;
+    nameSo.textContent = `${arg.name}`;
+    userName.textContent = `${arg.login}`;
+    location.textContent = `${arg.location}`;
+    profile.textContent = `${arg.html_url}`;
+    followers.textContent = `${arg.followers}`;
+    following.textContent = `${arg.following}`;
+    bio.textContent = `${arg.bio}`;
 
 
     return newCard;
